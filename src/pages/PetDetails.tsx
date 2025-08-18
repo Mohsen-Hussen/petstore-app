@@ -1,6 +1,6 @@
 import { useParams, Link as RouterLink } from "react-router-dom";
 import { usePet } from "../hooks/usePets";
-import { Container, Typography, Chip, Stack, Button } from "@mui/material";
+import { Container, Typography, Chip, Stack, Button, Box } from "@mui/material";
 import Loading from "../components/Loading";
 import { useState } from "react";
 
@@ -11,7 +11,7 @@ const PetDetails = () => {
 	const [img, setImg] = useState<string>(data?.photoUrls?.[0] || placeholder);
 
 	if (isLoading) return <Loading label="Loading pet..." />;
-	if (error || !data) return <div>Pet not found.</div>;
+	if (error || !data) return <Box>Pet not found.</Box>;
 
 	return (
 		<Container sx={{ py: 3 }}>
