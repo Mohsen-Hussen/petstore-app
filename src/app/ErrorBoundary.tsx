@@ -1,23 +1,20 @@
-import { Component, type JSX, type ReactNode } from "react";
+import { type ReactNode } from "react";
+import {
+	ErrorBoundary as ReactErrorBoundary,
+	type FallbackProps,
+} from "react-error-boundary";
+import ErrorFallback from "../components/ErrorFallback";
 
-type Props = {
-	children: ReactNode;
-	Fallback: (props: { error: Error; reset: () => void }) => JSX.Element;
-};
-type State = { hasError: boolean; error?: Error };
+type Props = { children: ReactNode };
 
-export class ErrorBoundary extends Component<Props, State> {
-	state: State = { hasError: false };
-	static getDerivedStateFromError(error: Error) {
-		return { hasError: true, error };
-	}
-	reset = () => this.setState({ hasError: false, error: undefined });
-	render() {
-		if (this.state.hasError && this.state.error)
-			return this.props.Fallback({
-				error: this.state.error,
-				reset: this.reset,
-			});
-		return this.props.children;
-	}
+export function ErrorBoundary({ children }: Props) {
+	return (
+		<ReactErrorBoundary
+			FallbackComponent={({ error, resetErrorBoundary }: FallbackProps) => (
+				<ErrorFallback error={error} reset={resetErrorBoundary} />
+			)}
+		>
+			{children}
+		</ReactErrorBoundary>
+	);
 }
