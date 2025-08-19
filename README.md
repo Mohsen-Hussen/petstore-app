@@ -29,6 +29,7 @@ A modern React TypeScript application for managing pets using the Swagger Petsto
 - **Frontend**: React 19 + TypeScript
 - **Build Tool**: Vite
 - **UI Library**: Material-UI (MUI)
+- **Animations**: Framer Motion
 - **State Management**: React Query (TanStack Query)
 - **Routing**: React Router v6
 - **HTTP Client**: Axios
