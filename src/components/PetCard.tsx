@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
 	Card,
@@ -9,7 +10,6 @@ import {
 	Chip,
 } from "@mui/material";
 import type { Pet } from "../types/pets";
-import { useState } from "react";
 
 const PetCard = ({ pet }: { pet: Pet }) => {
 	const placeholder = "https://placehold.co/600x400?text=Pet";

@@ -1,6 +1,5 @@
 import api from "./axios";
-
-type PetstoreLoginResp = { code: number; type: string; message: string };
+import type { PetstoreLoginResp } from "../types/pets";
 
 export async function petstoreLogin(username: string, password: string) {
 	if (username !== "demo" || password !== "demo") {

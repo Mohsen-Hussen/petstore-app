@@ -1,8 +1,8 @@
+import { useState } from "react";
 import { useParams, Link as RouterLink } from "react-router-dom";
 import { usePet } from "../hooks/usePets";
-import { Container, Typography, Chip, Stack, Button, Box } from "@mui/material";
 import Loading from "../components/Loading";
-import { useState } from "react";
+import { Container, Typography, Chip, Stack, Button, Box } from "@mui/material";
 
 const PetDetails = () => {
 	const { id } = useParams();

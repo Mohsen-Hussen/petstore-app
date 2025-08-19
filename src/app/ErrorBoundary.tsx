@@ -1,13 +1,12 @@
-import { type ReactNode } from "react";
 import {
 	ErrorBoundary as ReactErrorBoundary,
 	type FallbackProps,
 } from "react-error-boundary";
 import ErrorFallback from "../components/ErrorFallback";
+import type { ErrorBoundaryProps } from "../types/pets";
 
-type Props = { children: ReactNode };
 
-export function ErrorBoundary({ children }: Props) {
+export function ErrorBoundary({ children }: ErrorBoundaryProps) {
 	return (
 		<ReactErrorBoundary
 			FallbackComponent={({ error, resetErrorBoundary }: FallbackProps) => (

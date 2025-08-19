@@ -8,7 +8,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 	);
 
 	const login = async (username: string, password: string) => {
-		// will throw if not demo/demo
 		const token = await petstoreLogin(username, password);
 		localStorage.setItem("token", token);
 		setIsAuthed(true);

@@ -2,7 +2,6 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { queryClient } from "./queryClient";
 import { AuthProvider } from "../auth/AuthProvider";
-// import ErrorFallback from "../components/ErrorFallback";
 import { ErrorBoundary } from "./ErrorBoundary";
 
 export default function Providers({ children }: { children: React.ReactNode }) {

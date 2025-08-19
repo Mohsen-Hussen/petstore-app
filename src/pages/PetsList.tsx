@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { usePetsList } from "../hooks/usePets";
+import PetCard from "../components/PetCard";
 import {
 	Container,
 	TextField,
@@ -12,7 +13,6 @@ import {
 	Stack,
 	MenuItem,
 } from "@mui/material";
-import PetCard from "../components/PetCard";
 
 const PetsList = () => {
 	const [status, setStatus] = useState<string[]>(["available"]);

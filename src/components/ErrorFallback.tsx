@@ -1,12 +1,7 @@
 import { Alert, Button, Stack } from "@mui/material";
+import type { ErrorFallbackProps } from "../types/pets";
 
-const ErrorFallback = ({
-	error,
-	reset,
-}: {
-	error: Error;
-	reset: () => void;
-}) => {
+const ErrorFallback = ({ error, reset }: ErrorFallbackProps) => {
 	return (
 		<Stack sx={{ m: 2 }} gap={1}>
 			<Alert severity="error">{error.message}</Alert>

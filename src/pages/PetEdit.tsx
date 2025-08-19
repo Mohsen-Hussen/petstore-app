@@ -1,10 +1,10 @@
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { usePet, useUpdatePet } from "../hooks/usePets";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import { Container, TextField, MenuItem, Button, Stack } from "@mui/material";
-import { usePet, useUpdatePet } from "../hooks/usePets";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Loading from "../components/Loading";
+import { Container, TextField, MenuItem, Button, Stack } from "@mui/material";
 
 const schema = z.object({
 	name: z.string().min(1),
