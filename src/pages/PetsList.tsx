@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { usePetsList } from "../hooks/usePets";
+import { motion } from "framer-motion";
 import PetCard from "../components/PetCard";
 import {
 	Container,
@@ -45,18 +46,44 @@ const PetsList = () => {
 
 	const handleRefresh = () => refetch();
 
+	const pageVariants = {
+		initial: { opacity: 0, y: 20 },
+		animate: { 
+			opacity: 1, 
+			y: 0,
+			transition: { duration: 0.4, staggerChildren: 0.1 }
+		},
+		exit: { opacity: 0, y: -20, transition: { duration: 0.3 } }
+	};
+
+	const containerVariants = {
+		hidden: { opacity: 0 },
+		show: {
+			opacity: 1,
+			transition: {
+				staggerChildren: 0.1
+			}
+		}
+	};
+
 	return (
-		<Container sx={{ py: 3 }}>
-			<Box
-				sx={{
-					display: "flex",
-					justifyContent: "center",
-					alignItems: "center",
-					gap: 2,
-					flexWrap: "wrap",
-					mb: 3,
-				}}
-			>
+		<motion.div
+			variants={pageVariants}
+			initial="initial"
+			animate="animate"
+			exit="exit"
+		>
+			<Container sx={{ py: 3 }}>
+				<Box
+					sx={{
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+						gap: 2,
+						flexWrap: "wrap",
+						mb: 3,
+					}}
+				>
 				<ToggleButtonGroup
 					value={status}
 					onChange={onStatusChange}
@@ -94,7 +121,10 @@ const PetsList = () => {
 				<Box>No pets found.</Box>
 			)}
 
-			<Box
+			<motion.div
+				variants={containerVariants}
+				initial="hidden"
+				animate="show"
 				style={{
 					display: "grid",
 					gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
@@ -105,7 +135,7 @@ const PetsList = () => {
 				{current.map((p, i) => (
 					<PetCard key={`${String(p.id)}-${i}`} pet={p} />
 				))}
-			</Box>
+			</motion.div>
 
 			<Stack
 				direction="row"
@@ -140,6 +170,7 @@ const PetsList = () => {
 				</Box>
 			</Stack>
 		</Container>
+		</motion.div>
 	);
 };
 

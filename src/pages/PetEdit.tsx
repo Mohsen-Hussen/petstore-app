@@ -1,6 +1,7 @@
 import { usePet, useUpdatePet } from "../hooks/usePets";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Loading from "../components/Loading";
@@ -43,40 +44,94 @@ const PetEdit = () => {
 	}
 
 	if (isLoading || !pet) return <Loading label="Preparing form..." />;
+	
+	const pageVariants = {
+		initial: { opacity: 0, x: -20 },
+		animate: { 
+			opacity: 1, 
+			x: 0,
+			transition: { duration: 0.4, staggerChildren: 0.1 }
+		},
+		exit: { opacity: 0, x: 20, transition: { duration: 0.3 } }
+	};
+
+	const formVariants = {
+		hidden: { opacity: 0, y: 20 },
+		visible: { 
+			opacity: 1, 
+			y: 0,
+			transition: { staggerChildren: 0.1 }
+		}
+	};
+
+	const fieldVariants = {
+		hidden: { opacity: 0, y: 10 },
+		visible: { opacity: 1, y: 0 }
+	};
 
 	return (
-		<Container sx={{ py: 3 }}>
-			<form onSubmit={handleSubmit(onSubmit)}>
-				<Stack spacing={2} maxWidth={420}>
-					<TextField
-						label="Name"
-						{...register("name")}
-						error={!!errors.name}
-						helperText={errors.name?.message}
-					/>
-					<TextField select label="Status" {...register("status")}>
-						{["available", "pending", "sold"].map((s) => (
-							<MenuItem key={s} value={s}>
-								{s}
-							</MenuItem>
-						))}
-					</TextField>
-					<TextField
-						label="Photo URL"
-						{...register("photoUrl")}
-						error={!!errors.photoUrl}
-						helperText={errors.photoUrl?.message}
-					/>
-					<Button
-						type="submit"
-						variant="contained"
-						disabled={updateMut.isPending}
-					>
-						Save
-					</Button>
-				</Stack>
-			</form>
-		</Container>
+		<motion.div
+			variants={pageVariants}
+			initial="initial"
+			animate="animate"
+			exit="exit"
+		>
+			<Container sx={{ py: 3 }}>
+				<motion.form 
+					onSubmit={handleSubmit(onSubmit)}
+					variants={formVariants}
+					initial="hidden"
+					animate="visible"
+				>
+					<Stack spacing={2} maxWidth={420}>
+						<motion.div variants={fieldVariants}>
+							<TextField
+								label="Name"
+								{...register("name")}
+								error={!!errors.name}
+								helperText={errors.name?.message}
+								fullWidth
+							/>
+						</motion.div>
+						
+						<motion.div variants={fieldVariants}>
+							<TextField select label="Status" {...register("status")} fullWidth>
+								{["available", "pending", "sold"].map((s) => (
+									<MenuItem key={s} value={s}>
+										{s}
+									</MenuItem>
+								))}
+							</TextField>
+						</motion.div>
+						
+						<motion.div variants={fieldVariants}>
+							<TextField
+								label="Photo URL"
+								{...register("photoUrl")}
+								error={!!errors.photoUrl}
+								helperText={errors.photoUrl?.message}
+								fullWidth
+							/>
+						</motion.div>
+						
+						<motion.div 
+							variants={fieldVariants}
+							whileHover={{ scale: 1.02 }} 
+							whileTap={{ scale: 0.98 }}
+						>
+							<Button
+								type="submit"
+								variant="contained"
+								disabled={updateMut.isPending}
+								fullWidth
+							>
+								{updateMut.isPending ? "Saving..." : "Save"}
+							</Button>
+						</motion.div>
+					</Stack>
+				</motion.form>
+			</Container>
+		</motion.div>
 	);
 };
 
